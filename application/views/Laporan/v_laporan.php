@@ -70,21 +70,21 @@
           <table id="datatable" class="table table-bordered table-striped-responsive" width="100%">
             <thead>
             <tr>
-              <th style="width:%">ID</th>
-              <th style="width:%">Tanggal</th>
-              <th style="width:%">ID Pelanggan</th>
-              <th style="width:%">Nama Pelanggan</th>
-              <th style="width:%">ID Produk</th>
-              <th style="width:%">Nama Produk</th>
-              <th style="width:%">Harga</th>
-              <th style="width:%">Qty</th>
-              <th style="width:%">Value</th>
-              <th style="width:%">Disc</th>
-              <th style="width:%">Potongan Disc</th>
-              <th style="width:%">ID Promosi</th>
-              <th style="width:%">Disc Member</th>
-              <th style="width:%">Potongan Member</th>
-              <th style="width:%">Total</th>
+              <th>ID</th>
+              <th>Tanggal</th>
+              <th>ID Pelanggan</th>
+              <th>Nama Pelanggan</th>
+              <th>ID Produk</th>
+              <th>Nama Produk</th>
+              <th>Harga</th>
+              <th>Qty</th>
+              <th>Value</th>
+              <th>Disc</th>
+              <th>Potongan Disc</th>
+              <th>ID Promosi</th>
+              <th>Disc Member</th>
+              <th>Potongan Member</th>
+              <th>Total</th>
             </tr>
             </thead>
             <tbody>

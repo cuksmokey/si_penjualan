@@ -76,9 +76,19 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'db_penjualan',
+
+	// LOCAL
+	// 'username' => 'root',
+	// 'password' => '',
+	// 'database' => 'db_penjualan',
+
+	// ONLINE
+	'username' => 'ppin8794_ppi_corr',
+	'password' => 'primapaper2020',
+	'database' => 'ppin8794_db_corr_ppi',
+
+	//
+
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
