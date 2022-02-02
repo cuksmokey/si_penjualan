@@ -133,7 +133,8 @@ class M_master extends CI_Model{
         $data = array(
                 'username'  => $id,
                 'nm_user'  => $this->input->post('nm_user'),
-                'password'  => base64_encode($this->input->post('password'))
+                'password'  => base64_encode($this->input->post('password')),
+                'level'  => $this->input->post('level'),
             );
 
         if ($status == 'insert') {
@@ -164,7 +165,6 @@ class M_master extends CI_Model{
             }
         }
 
-
         $data = array(
                 'kode_mc'  => $kode_mc,
                 'nm_produk'  => $this->input->post('nm_produk'),
@@ -178,6 +178,7 @@ class M_master extends CI_Model{
                 'wall' => $this->input->post('wall'),
                 'l_panjang' => $this->input->post('l_panjang'),
                 'l_lebar' => $this->input->post('l_lebar'),
+                'l_tinggi' => $this->input->post('l_tinggi'),
                 'creasing' => $this->input->post('creasing'),
                 'flute' => $this->input->post('flute'),
                 'berat_bersih' => $this->input->post('berat_bersih'),
@@ -202,14 +203,11 @@ class M_master extends CI_Model{
         if ($status == 'insert') {
             $this->db->set("add_user", $this->username);
             $result= $this->db->insert($table,$data);
-
         }else{
-            
             $this->db->set("edit_user", $this->username);
             $this->db->set("edit_time", date('Y-m-d H:i:s'));
             $result= $this->db->update($table,$data,array('id' => $id));
         }
-        
 
         return $result;
     }

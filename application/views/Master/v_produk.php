@@ -121,20 +121,26 @@
 							<td style="padding:5px 0" colspan="2"><input type="text" class="form-control" id="tipe" placeholder="-" disabled></td>
 						</tr>
 						<tr>
-							<td style="padding:5px 0">LUAS PANJANG</td>
+							<!-- <td style="padding:5px 0">LUAS PANJANG</td> -->
+							<td style="padding:5px 0">P / L / T</td>
 							<td style="padding:5px 0"><input type="text" class="form-control" id="l_panjang" placeholder="P" maxlength="4" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td>
-							<td style="padding:5px 0 5px 5px">LUAS LEBAR</td>
+							<!-- <td style="padding:5px 0 5px 5px">LUAS LEBAR</td> -->
 							<td style="padding:5px 0"><input type="text" class="form-control" id="l_lebar" placeholder="L" maxlength="4" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td>
-							<!-- <td></td> -->
-							<td><input type="text" class="form-control" id="l_qty" placeholder="QTY" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td>
+							<td style="padding:5px 0"><input type="text" class="form-control" id="l_tinggi" placeholder="T" maxlength="4" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td>
+							
+							<td></td>
+							<!-- <td><input type="text" class="form-control" id="l_qty" placeholder="QTY" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td> -->
+
 							<td style="padding:5px 0">UKURAN BOX</td>
 							<td style="padding:5px 0" colspan="2"><input type="text" class="form-control" id="ukuran" placeholder="-" autocomplete="off" disabled></td>
 						</tr>
 						<tr>
 							<td style="padding:5px 0">CREASING</td>
 							<td style="padding:5px 0" colspan="3"><input type="text" class="form-control" id="creasing" placeholder="SCORE" autocomplete="off"></td>
-							<!-- <td></td> -->
-							<td><input type="text" class="form-control" id="l_hasilkali" placeholder="HASIL" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td>
+							
+							<td></td>
+							<!-- <td><input type="text" class="form-control" id="l_hasilkali" placeholder="HASIL" onkeypress="return hanyaAngka(event)" autocomplete="off" onchange="berhitung()"></td> -->
+
 							<td style="padding:5px 0">UKURAN SHEET</td>
 							<td style="padding:5px 0" colspan="2"><input type="text" class="form-control" id="ukuran_sheet" placeholder="-" autocomplete="off" disabled></td>
 						</tr>
@@ -327,6 +333,7 @@
 		wall = $("#wall").val();
 		l_panjang = $("#l_panjang").val();
 		l_lebar = $("#l_lebar").val();
+		l_tinggi = $("#l_tinggi").val();
 		creasing = $("#creasing").val();
 		flute = $("#flute").val();
 		berat_bersih = $("#berat_bersih").val();
@@ -348,7 +355,7 @@
 		spesial_req = $("#spesial_req").val();
 
 
-		if (kode_mc == '' || nm_produk == '' || no_customer == '' || customer == '' || ukuran == '' || ukuran_sheet == '' || sambungan == '' || tipe == '' || material == '' || wall == '' || l_panjang == '' || l_lebar == '' || creasing == '' || flute == '' || berat_bersih == '' || luas_bersih == '' || kualitas == '' || warna == '' || no_design == '' || design == '' || tipe_box == '' || jenis_produk == '' || kategori == '' || cCOA == '' || jml_ikat == '' || jml_palet == '' || jml_paku == '' || no_pisau == '' || no_karet == '' || toleransi_kirim == '' || spesial_req == '') {
+		if (kode_mc == '' || nm_produk == '' || no_customer == '' || customer == '' || ukuran == '' || ukuran_sheet == '' || sambungan == '' || tipe == '' || material == '' || wall == '' || l_panjang == '' || l_lebar == '' || l_tinggi == '' || creasing == '' || flute == '' || berat_bersih == '' || luas_bersih == '' || kualitas == '' || warna == '' || no_design == '' || design == '' || tipe_box == '' || jenis_produk == '' || kategori == '' || cCOA == '' || jml_ikat == '' || jml_palet == '' || jml_paku == '' || no_pisau == '' || no_karet == '' || toleransi_kirim == '' || spesial_req == '') {
 			toastr.info('Harap Lengkapi Form');
 			return;
 		}
@@ -372,6 +379,7 @@
 				wall,
 				l_panjang,
 				l_lebar,
+				l_tinggi,
 				creasing,
 				flute,
 				berat_bersih,
@@ -427,6 +435,7 @@
 		$("#wall").val("");
 		$("#l_panjang").val("");
 		$("#l_lebar").val("");
+		$("#l_tinggi").val("");
 		$("#creasing").val("");
 		$("#flute").val("");
 		$("#berat_bersih").val("");
@@ -515,6 +524,7 @@
 				$("#wall").val(data.wall);
 				$("#l_panjang").val(data.l_panjang);
 				$("#l_lebar").val(data.l_lebar);
+				$("#l_tinggi").val(data.l_tinggi);
 				$("#creasing").val(data.creasing);
 				$("#flute").val(data.flute);
 				$("#berat_bersih").val(data.berat_bersih);
@@ -540,6 +550,7 @@
 
 
 	function deleteData(id) {
+		// alert(id);
 		let cek = confirm("Apakah Anda Yakin?");
 
 		if (cek) {
@@ -548,7 +559,8 @@
 				data: ({
 					id: id,
 					jenis: 'm_produk',
-					field: 'kode_mc'
+					// field: 'kode_mc'
+					field: 'id'
 				}),
 				type: "POST",
 				success: function(data) {
@@ -584,6 +596,7 @@
 		let plh_tipe = $("#kategori").val();
 		let l_panjang = $("#l_panjang").val();
 		let l_lebar = $("#l_lebar").val();
+		// let l_tinggi = $("#l_tinggi").val();
 
 		if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0){
 			txtPL = "";
@@ -729,6 +742,7 @@
 		let plh_tipe = $("#kategori").val();
 		let l_panjang = $("#l_panjang").val();
 		let l_lebar = $("#l_lebar").val();
+		// let l_tinggi = $("#l_tinggi").val();
 		let l_qty = $("#l_qty").val();
 		// let l_hasilkali = $("#l_hasilkali").val();
 

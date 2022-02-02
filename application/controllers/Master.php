@@ -132,11 +132,11 @@ class Master extends CI_Controller
 				$row[] = $r->creasing;
 				$row[] = $r->warna;
 				$row[] = $aksi = '<button type="button" onclick="tampil_edit(' . "'" . $r->id . "'" . ',' . "'edit'" . ')" class="btn btn-warning btn-xs">
-                               Edit
-                            </button>
-                            <button type="button" onclick="deleteData(' . "'" . $r->id . "'" . ')" class="btn btn-danger btn-xs">
-                               Hapus
-                            </button> ';
+					Edit
+				</button>
+				<button type="button" onclick="deleteData(' . "'" . $r->id . "'" . ')" class="btn btn-danger btn-xs">
+					Hapus
+				</button> ';
 
 				$data[] = $row;
 
@@ -155,21 +155,19 @@ class Master extends CI_Controller
 
 				if ($r->level == 'Admin') {
 					$aksi = '<button type="button" onclick="tampil_edit(' . "'" . $r->username . "'" . ',' . "'edit'" . ')" class="btn btn-warning btn-xs">
-                               Edit
-                            </button>';
+						Edit
+					</button>';
 				} else {
 					$aksi = '<button type="button" onclick="tampil_edit(' . "'" . $r->username . "'" . ',' . "'edit'" . ')" class="btn btn-warning btn-xs">
-                               Edit
-                            </button>
-                            <button type="button" onclick="deleteData(' . "'" . $r->username . "'" . ')" class="btn btn-danger btn-xs">
-                               Hapus
-                            </button> ';
+						Edit
+					</button>
+					<button type="button" onclick="deleteData(' . "'" . $r->username . "'" . ')" class="btn btn-danger btn-xs">
+						Hapus
+					</button>';
 				}
 
 				$row[] = $aksi;
-
 				$data[] = $row;
-
 				$i++;
 			}
 		}
