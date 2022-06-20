@@ -266,27 +266,27 @@
 			return;
 		}
 
-		console.log($('#myForm').serialize());
+		// console.log($('#myForm').serialize());
 
-		// $.ajax({
-		// 	url: '<?php echo base_url(); ?>Transaksi/insert',
-		// 	type: "POST",
-		// 	data: $('#myForm').serialize(),
-		// 	dataType: "JSON",
-		// 	success: function(data) {
-		// 		if (data) {
-		// 			toastr.success('Berhasil Disimpan');
-		// 			kosong();
-		// 			$("#modalForm").modal("hide");
-		// 		} else {
-		// 			toastr.error('Gagal Simpan');
-		// 		}
-		// 		reloadTable();
-		// 	},
-		// 	error: function(jqXHR, textStatus, errorThrown) {
-		// 		toastr.error('Terjadi Kesalahan');
-		// 	}
-		// });
+		$.ajax({
+			url: '<?php echo base_url(); ?>Transaksi/insert',
+			type: "POST",
+			data: $('#myForm').serialize(),
+			dataType: "JSON",
+			success: function(data) {
+				if (data) {
+					toastr.success('Berhasil Disimpan');
+					kosong();
+					$("#modalForm").modal("hide");
+				} else {
+					toastr.error('Gagal Simpan');
+				}
+				reloadTable();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				toastr.error('Terjadi Kesalahan');
+			}
+		});
 
 	}
 
