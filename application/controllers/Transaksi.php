@@ -789,7 +789,8 @@ class Transaksi extends CI_Controller
 			$html .= '<h1> Data Kosong </h1>';
 		}
 
-		$this->m_fungsi->_mpdf($html);
+		// $this->m_fungsi->_mpdf($html);
+		$this->m_fungsi->mPDFP($html);
 	}
 
 	function Cetak_WO_()
