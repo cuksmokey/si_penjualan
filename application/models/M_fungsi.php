@@ -226,6 +226,16 @@ class M_fungsi extends CI_Model {
 		}
 		return $hasil;  
 	} 
+
+	function mPDFP($html){
+		$mpdf = new \Mpdf\Mpdf;
+		$mpdf = new \Mpdf\Mpdf([
+			'default_font_size' => 9
+		]);
+		$mpdf->AddPage('P','','','','',10,10,10,10);
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
+	}
     
     
     function _mpdf($judul='',$isi='',$lMargin='',$rMargin='',$font=0,$orientasi='') {
