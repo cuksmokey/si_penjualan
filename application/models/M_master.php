@@ -92,11 +92,12 @@ class M_master extends CI_Model{
     
     function m_pelanggan($table,$status){
         
-        if ($status == 'insert') {
-            $id = "CS".$this->get_data_max($table,"id_pelanggan");
-        }else{
-            $id = $this->input->post('id_pelanggan');
-        }
+        // if ($status == 'insert') {
+        //     $id = "CS".$this->get_data_max($table,"id_pelanggan");
+        // }else{
+            // $id = $this->input->post('id_pelanggan');
+        // }
+		$id = $this->input->post('no_pelanggan');
 
         $data = array(
                 'id_pelanggan'  => $id,

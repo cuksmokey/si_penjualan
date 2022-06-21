@@ -69,6 +69,12 @@
   				<form role="form" method="post" id="myForm">
 
   					<div class="form-group row">
+  						<label class="col-sm-2 col-form-label">ID Pelanggan</label>
+  						<div class="col-sm-10">
+  							<input type="text" class="form-control" id="no_pelanggan" placeholder="Masukan.." maxlength="6">
+  						</div>
+  					</div>
+  					<div class="form-group row">
   						<label class="col-sm-2 col-form-label">Nama pelanggan</label>
   						<div class="col-sm-10">
   							<input type="hidden" class="form-control" id="id_pelanggan">
@@ -181,6 +187,7 @@
 
   	function simpan() {
   		id_pelanggan = $("#id_pelanggan").val();
+  		no_pelanggan = $("#no_pelanggan").val();
   		nm_pelanggan = $("#nm_pelanggan").val();
   		no_telp = $("#no_telp").val();
   		kota = $("#kota").val();
@@ -190,7 +197,7 @@
   		alamat_kirim = $("textarea#alamat_kirim").val();
   		lokasi = $("#lokasi").val();
 
-  		if (nm_pelanggan == '' || fax == '' || no_telp == '' || kota == '' || top1 == '' || alamat_kirim == '' || lokasi == '') {
+  		if (no_pelanggan == '' || nm_pelanggan == '' || fax == '' || no_telp == '' || kota == '' || top1 == '' || alamat_kirim == '' || lokasi == '') {
   			toastr.info('Harap Lengkapi Form');
   			return;
   		}
@@ -201,6 +208,7 @@
   			type: "POST",
   			data: ({
   				id_pelanggan,
+  				no_pelanggan,
   				nm_pelanggan,
   				no_telp,
   				alamat,
@@ -214,12 +222,12 @@
   			}),
   			dataType: "JSON",
   			success: function(data) {
-  				if (data) {
+  				if (data.data == true) {
   					toastr.success('Berhasil Disimpan');
   					kosong();
   					$("#modalForm").modal("hide");
   				} else {
-  					toastr.error('Gagal Simpan');
+  					toastr.error('Id Pelanggan Sudah Ada!!!');
   				}
   				reloadTable();
   			},
@@ -230,6 +238,7 @@
   	}
 
   	function kosong() {
+  		$("#no_pelanggan").val('');
   		$("#nm_pelanggan").val('');
   		$("#no_telp").val('');
   		$("textarea#alamat").val('');
@@ -237,6 +246,7 @@
   		$("#lokasi").val('');
   		$("#kota").val('');
   		$("#fax").val('');
+  		$("#top").val('');
   		$("#ttl").val('');
   		status = 'insert';
   		$("#btn-simpan").show();
@@ -270,6 +280,7 @@
   			})
   			.done(function(data) {
   				$("#id_pelanggan").val(data.id_pelanggan);
+  				$("#no_pelanggan").val(data.id_pelanggan);
   				$("#nm_pelanggan").val(data.nm_pelanggan);
   				$("#no_telp").val(data.no_telp);
   				$("textarea#alamat").val(data.alamat);

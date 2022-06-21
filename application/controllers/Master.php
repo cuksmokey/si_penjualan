@@ -82,11 +82,22 @@ class Master extends CI_Controller
 
 		$jenis      = $this->input->post('jenis');
 		$status      = $this->input->post('status');
+		// m_pelanggan
+		if($jenis == 'm_pelanggan'){
+			$cekid = $this->input->post('no_pelanggan');
+			$cek = $this->m_master->get_data_one("m_pelanggan","id_pelanggan",$cekid)->num_rows();
+			if ($cek > 0 ) {
+				echo json_encode(array('data' => false));
+			}else{
+				$result = $this->m_master->$jenis($jenis, $status);
+				echo json_encode(array('data' => true));
+			}
+		}else{
+			$result = $this->m_master->$jenis($jenis, $status);
+			echo json_encode($result);
+		}
 
-		$result     = $this->m_master->$jenis($jenis, $status);
-
-
-		echo json_encode($result);
+		// echo json_encode($result);
 	}
 
 	function load_data()
