@@ -155,8 +155,11 @@
 								</select>
 							</td>
 							<td colspan="3"><input type="hidden" id="nilai_flute"></td>
-							<td style="padding:5px 0">WALL</td>
-							<td style="padding:5px 0" colspan="2"><input type="text" class="form-control" id="wall" placeholder="-" disabled></td>
+							<td colspan="3"><input type="hidden" id="nilai_sheet_panjang"></td>
+							<td colspan="3"><input type="hidden" id="nilai_sheet_lebar"></td>
+							<td colspan="3"><input type="hidden" id="wall"></td>
+							<!-- <td style="padding:5px 0">WALL</td>
+							<td style="padding:5px 0" colspan="2"><input type="text" class="form-control" id="wall" placeholder="-" disabled></td> -->
 						</tr>
 						<tr>
 							<td style="padding:5px">
@@ -433,9 +436,12 @@
 		$("#tipe").val("");
 		$("#material").val("");
 		$("#wall").val("");
-		$("#l_panjang").val("");
-		$("#l_lebar").val("");
-		$("#l_tinggi").val("");
+		$("#l_panjang").val("").prop("disabled", true);
+		$("#l_lebar").val("").prop("disabled", true);
+		$("#l_tinggi").val("").prop("disabled", true);
+		$("#nilai_sheet_panjang").val("");
+		$("#nilai_sheet_lebar").val("");
+		$("#nilai_flute").val("");
 		$("#creasing").val("");
 		$("#flute").val("");
 		$("#berat_bersih").val("");
@@ -596,13 +602,13 @@
 		let plh_tipe = $("#kategori").val();
 		let l_panjang = $("#l_panjang").val();
 		let l_lebar = $("#l_lebar").val();
-		// let l_tinggi = $("#l_tinggi").val();
+		let l_tinggi = $("#l_tinggi").val();
 
-		if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0){
-			txtPL = "";
-		}else{
-			txtPL = l_panjang + " X " + l_lebar;
-		}
+		// if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0){
+		// 	txtPL = "";
+		// }else{
+		// 	txtPL = l_panjang + " X " + l_lebar;
+		// }
 
 		if(plh_tipe == ""){
 			zFlute("disable");
@@ -612,18 +618,41 @@
 			$("#l_panjang").val("");
 			$("#l_lebar").val("");
 			$("#creasing").val("");
+
+			$("#l_panjang").val("").prop("disabled", true);
+			$("#l_lebar").val("").prop("disabled", true);
+			$("#l_tinggi").val("").prop("disabled", true);
+			$("#nilai_sheet_panjang").val("");
+			$("#nilai_sheet_lebar").val("");
+			$("#nilai_flute").val("");
 		} else if(plh_tipe == "K_BOX"){
 			zFlute("disable");
 			$("#flute").val("");
 			$("#tipe").val("BOX");
-			$("#ukuran").val(txtPL);
+			// $("#ukuran").val(txtPL);
+			$("#ukuran").val("-");
 			$("#ukuran_sheet").val("-");
+
+			$("#l_panjang").val("").prop("disabled", false);
+			$("#l_lebar").val("").prop("disabled", false);
+			$("#l_tinggi").val("").prop("disabled", false);
+			$("#nilai_sheet_panjang").val("");
+			$("#nilai_sheet_lebar").val("");
+			$("#nilai_flute").val("");
 		} else if(plh_tipe == "K_SHEET"){
 			zFlute("disable");
 			$("#flute").val("");
 			$("#tipe").val("SHEET");
 			$("#ukuran").val("-");
-			$("#ukuran_sheet").val(txtPL);
+			$("#ukuran_sheet").val("-");
+			// $("#ukuran_sheet").val(txtPL);
+
+			$("#l_panjang").val("").prop("disabled", false);
+			$("#l_lebar").val("").prop("disabled", false);
+			$("#l_tinggi").val("").prop("disabled", true);
+			$("#nilai_sheet_panjang").val("");
+			$("#nilai_sheet_lebar").val("");
+			$("#nilai_flute").val("");
 		} else {
 			zFlute("disable");
 			$("#flute").val("");
@@ -634,11 +663,21 @@
 	$('#flute').on('change', function() {
 		let plh_flute = $("#flute").val();
 
+		let r_panjang = parseInt(document.getElementById('l_panjang').value);
+		let r_lebar = parseInt(document.getElementById('l_lebar').value);
+		let r_tinggi = parseInt(document.getElementById('l_tinggi').value);
+
 		if(plh_flute == ""){
 			zFlute("disable");
+			
+			ruk_p = 0;
+			ruk_l = 0;
 		} else if(plh_flute == "CB"){
 			zFlute("false");
 			$("#wall").val("DOUBLE");
+
+			ruk_p = 2 * (r_panjang + r_lebar) + 61;
+			ruk_l = r_lebar + r_tinggi + 23;
 		} else if(plh_flute == "CF") {
 			zFlute("disable");
 			$("#M_K").val("").prop("disabled", false);
@@ -648,6 +687,9 @@
 			$("#M_BL").val("").prop("disabled", false);
 			$("#F_BL").val("").prop("disabled", false);
 			$("#wall").val("SINGLE");
+
+			ruk_p = 2 * (r_panjang + r_lebar) + 43;
+			ruk_l = r_lebar + r_tinggi + 13;
 		} else if(plh_flute == "BF") {
 			zFlute("disable");
 			$("#M_K").val("").prop("disabled", false);
@@ -657,9 +699,26 @@
 			$("#M_BL").val("").prop("disabled", false);
 			$("#F_BL").val("").prop("disabled", false);
 			$("#wall").val("SINGLE");
+
+			ruk_p = 2 * (r_panjang + r_lebar) + 39;
+			ruk_l = r_lebar + r_tinggi + 9;
 		} else {
 			zFlute("disable");
+
+			ruk_p = 0;
+			ruk_l = 0;
 		}
+
+		if(ruk_p == 0 || ruk_p == 0){
+			tmpl_uk_sheet = "-";
+		}else{
+			tmpl_uk_sheet = ruk_p +" X "+ ruk_l;
+		}
+
+		$("#ukuran_sheet").val(tmpl_uk_sheet);
+		
+		document.getElementById('nilai_sheet_panjang').value = ruk_p;
+		document.getElementById('nilai_sheet_lebar').value = ruk_l;
 	})
 
 	function cflute(){
@@ -724,11 +783,11 @@
 		if(plh_flute == ""){
 			getNilaiFlute = 0;
 		} else if(plh_flute == "CB"){
-			getNilaiFlute = parseFloat((parseInt(kk) + cariBF + parseInt(clcl) + cariC + parseInt(blbl)) / 1000).toFixed(2);
+			getNilaiFlute = parseFloat((parseInt(kk) + cariBF + parseInt(clcl) + cariC + parseInt(blbl)) / 1000).toFixed(3);
 		} else if(plh_flute == "CF") {
-			getNilaiFlute = parseFloat((parseInt(kk) + cariC + parseInt(blbl)) / 1000).toFixed(2);
+			getNilaiFlute = parseFloat((parseInt(kk) + cariC + parseInt(blbl)) / 1000).toFixed(3);
 		} else if(plh_flute == "BF") {
-			getNilaiFlute = parseFloat((parseInt(kk) + cariBF + parseInt(blbl)) / 1000).toFixed(2);
+			getNilaiFlute = parseFloat((parseInt(kk) + cariBF + parseInt(blbl)) / 1000).toFixed(3);
 		} else {
 			getNilaiFlute = 0;
 		}
@@ -742,49 +801,69 @@
 		let plh_tipe = $("#kategori").val();
 		let l_panjang = $("#l_panjang").val();
 		let l_lebar = $("#l_lebar").val();
-		// let l_tinggi = $("#l_tinggi").val();
+		let l_tinggi = $("#l_tinggi").val();
 		let l_qty = $("#l_qty").val();
-		// let l_hasilkali = $("#l_hasilkali").val();
+		// let l_hasilkali = $("#l_hasilkali").val();		
 
-		if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0){
-			txtPL = "";
+		// if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0 || l_tinggi == '' || l_tinggi == 0){
+		// 	txtPL = "";
+		// }else{
+		if(plh_tipe == "K_BOX"){
+			if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0 || l_tinggi == '' || l_tinggi == 0){
+				txtPL = "";
+			}else{
+				txtPL = l_panjang + " X " + l_lebar + " X " + l_tinggi;
+			}
+		}else if(plh_tipe == "K_SHEET"){
+			if(l_panjang == '' || l_panjang == 0 || l_lebar == '' || l_lebar == 0){
+				txtPL = "";
+			}else{
+				txtPL = l_panjang + " X " + l_lebar;
+			}
 		}else{
-			txtPL = l_panjang + " X " + l_lebar;
+			txtPL = "";
 		}
+		// }
+
 
 		if(plh_tipe == ""){
 			zFlute("disable");
 		} else if(plh_tipe == "K_BOX"){
 			$("#ukuran").val(txtPL);
-			$("#ukuran_sheet").val("-");
+			// $("#ukuran_sheet").val("-");
+			uSPjg = "nilai_sheet_panjang"
+			uSLbr = "nilai_sheet_lebar";
 		} else if(plh_tipe == "K_SHEET"){
 			$("#ukuran").val("-");
 			$("#ukuran_sheet").val(txtPL);
+			uSPjg = "l_panjang"
+			uSLbr = "l_lebar";
 		} else {		
 			$("#ukuran").val("-");
-			$("#ukuran_sheet").val("-");
+			// $("#ukuran_sheet").val("-");
 		}
 
 		///////
 
 		let nilaiFlute = document.getElementById('nilai_flute').value;
 
-		let h_panjang = parseFloat(document.getElementById('l_panjang').value / 1000);
-		let h_lebar = parseFloat(document.getElementById('l_lebar').value / 1000);
+		let h_panjang = parseFloat(document.getElementById(uSPjg).value / 1000);
+		let h_lebar = parseFloat(document.getElementById(uSLbr).value / 1000);
 		// document.getElementById('creasing').value = h_panjang + ' - ' + h_lebar;
 
 		// parseFloat(nilaiBeratBersih).toFixed(2)
-		let nilaiBeratBersih = parseFloat(nilaiFlute * h_panjang * h_lebar).toFixed(2);
-		let txtHasil = parseFloat(l_qty * nilaiBeratBersih).toFixed(2);
+		let nilaiBeratBersih = parseFloat(nilaiFlute * h_panjang * h_lebar).toFixed(3);
+		let nilaiLuasBersih = parseFloat(h_panjang * h_lebar).toFixed(3);
+		// let txtHasil = parseFloat(l_qty * nilaiBeratBersih).toFixed(2);
 		// let nilaiBeratBersih = nilaiFlute;
 
-		if(isNaN(nilaiFlute) || isNaN(h_panjang) || isNaN(h_lebar) || isNaN(nilaiBeratBersih) || nilaiBeratBersih == 0){
+		if(isNaN(nilaiFlute) || isNaN(h_panjang) || isNaN(h_lebar) || isNaN(nilaiBeratBersih) || nilaiBeratBersih == 0 || isNaN(nilaiLuasBersih) || nilaiLuasBersih == 0){
 			document.getElementById('berat_bersih').value = "";
 			document.getElementById('luas_bersih').value = "";
 		} else {
-			document.getElementById('berat_bersih').value = nilaiBeratBersih; 
-			document.getElementById('luas_bersih').value = "-";
-			document.getElementById('l_hasilkali').value = txtHasil;
+			document.getElementById('berat_bersih').value = nilaiBeratBersih;
+			document.getElementById('luas_bersih').value = nilaiLuasBersih;
+			// document.getElementById('l_hasilkali').value = txtHasil;
 		}
     }
 
