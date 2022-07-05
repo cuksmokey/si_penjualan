@@ -85,7 +85,8 @@ $db['default'] = array(
 	// ONLINE
 	'username' => 'ppin8794_ppi_corr',
 	'password' => 'primapaper2020',
-	'database' => 'ppin8794_db_corr_ppi',
+	// 'database' => 'ppin8794_db_corr_ppi',
+	'database' => 'ppin8794_db_corr_ppi_v2',
 
 	//
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Feb 2022 pada 07.27
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 5.6.40
+-- Generation Time: Jul 05, 2022 at 12:38 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `m_pelanggan`
+-- Table structure for table `m_pelanggan`
 --
 
 CREATE TABLE `m_pelanggan` (
@@ -47,7 +47,7 @@ CREATE TABLE `m_pelanggan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `m_produk`
+-- Table structure for table `m_produk`
 --
 
 CREATE TABLE `m_produk` (
@@ -65,6 +65,7 @@ CREATE TABLE `m_produk` (
   `wall` varchar(100) DEFAULT NULL,
   `l_panjang` varchar(100) DEFAULT NULL,
   `l_lebar` varchar(100) DEFAULT NULL,
+  `l_tinggi` varchar(100) DEFAULT NULL,
   `berat_bersih` varchar(100) DEFAULT NULL,
   `luas_bersih` varchar(100) DEFAULT NULL,
   `no_design` varchar(100) DEFAULT NULL,
@@ -92,7 +93,7 @@ CREATE TABLE `m_produk` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `m_setting`
+-- Table structure for table `m_setting`
 --
 
 CREATE TABLE `m_setting` (
@@ -106,7 +107,7 @@ CREATE TABLE `m_setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `m_setting`
+-- Dumping data for table `m_setting`
 --
 
 INSERT INTO `m_setting` (`nm_aplikasi`, `singkatan`, `diskon_member`, `nm_toko`, `alamat`, `no_telp`, `logo`) VALUES
@@ -115,7 +116,7 @@ INSERT INTO `m_setting` (`nm_aplikasi`, `singkatan`, `diskon_member`, `nm_toko`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user`
+-- Table structure for table `tb_user`
 --
 
 CREATE TABLE `tb_user` (
@@ -127,7 +128,7 @@ CREATE TABLE `tb_user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data untuk tabel `tb_user`
+-- Dumping data for table `tb_user`
 --
 
 INSERT INTO `tb_user` (`id`, `username`, `password`, `nm_user`, `level`) VALUES
@@ -139,13 +140,14 @@ INSERT INTO `tb_user` (`id`, `username`, `password`, `nm_user`, `level`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trs_po`
+-- Table structure for table `trs_po`
 --
 
 CREATE TABLE `trs_po` (
   `id` int(11) NOT NULL,
   `no_po` varchar(25) NOT NULL,
   `tgl_po` date NOT NULL,
+  `eta` date NOT NULL,
   `kode_po` varchar(20) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'Open',
   `total_qty` int(11) NOT NULL,
@@ -167,13 +169,14 @@ CREATE TABLE `trs_po` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trs_po_detail`
+-- Table structure for table `trs_po_detail`
 --
 
 CREATE TABLE `trs_po_detail` (
   `id` int(11) NOT NULL,
   `no_po` varchar(25) NOT NULL,
   `tgl_po` date NOT NULL,
+  `eta` date NOT NULL,
   `kode_po` varchar(20) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'Open',
   `qty` int(11) NOT NULL,
@@ -209,7 +212,7 @@ CREATE TABLE `trs_po_detail` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trs_so_detail`
+-- Table structure for table `trs_so_detail`
 --
 
 CREATE TABLE `trs_so_detail` (
@@ -251,7 +254,7 @@ CREATE TABLE `trs_so_detail` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trs_surat_jalan`
+-- Table structure for table `trs_surat_jalan`
 --
 
 CREATE TABLE `trs_surat_jalan` (
@@ -283,7 +286,7 @@ CREATE TABLE `trs_surat_jalan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trs_wo`
+-- Table structure for table `trs_wo`
 --
 
 CREATE TABLE `trs_wo` (
@@ -320,7 +323,7 @@ CREATE TABLE `trs_wo` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `trs_wo_detail`
+-- Table structure for table `trs_wo_detail`
 --
 
 CREATE TABLE `trs_wo_detail` (
@@ -374,27 +377,27 @@ CREATE TABLE `trs_wo_detail` (
 --
 
 --
--- Indeks untuk tabel `m_pelanggan`
+-- Indexes for table `m_pelanggan`
 --
 ALTER TABLE `m_pelanggan`
   ADD PRIMARY KEY (`id_pelanggan`);
 
 --
--- Indeks untuk tabel `m_produk`
+-- Indexes for table `m_produk`
 --
 ALTER TABLE `m_produk`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
 
 --
--- Indeks untuk tabel `tb_user`
+-- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`username`),
   ADD KEY `id` (`id`);
 
 --
--- Indeks untuk tabel `trs_po`
+-- Indexes for table `trs_po`
 --
 ALTER TABLE `trs_po`
   ADD PRIMARY KEY (`no_po`),
@@ -402,7 +405,7 @@ ALTER TABLE `trs_po`
   ADD KEY `id_2` (`id`);
 
 --
--- Indeks untuk tabel `trs_po_detail`
+-- Indexes for table `trs_po_detail`
 --
 ALTER TABLE `trs_po_detail`
   ADD PRIMARY KEY (`no_po`,`kode_mc`),
@@ -410,7 +413,7 @@ ALTER TABLE `trs_po_detail`
   ADD KEY `id_2` (`id`);
 
 --
--- Indeks untuk tabel `trs_so_detail`
+-- Indexes for table `trs_so_detail`
 --
 ALTER TABLE `trs_so_detail`
   ADD PRIMARY KEY (`no_so`),
@@ -418,7 +421,7 @@ ALTER TABLE `trs_so_detail`
   ADD KEY `id_2` (`id`);
 
 --
--- Indeks untuk tabel `trs_surat_jalan`
+-- Indexes for table `trs_surat_jalan`
 --
 ALTER TABLE `trs_surat_jalan`
   ADD PRIMARY KEY (`no_surat_jalan`,`no_po`,`kode_mc`),
@@ -426,7 +429,7 @@ ALTER TABLE `trs_surat_jalan`
   ADD KEY `id_2` (`id`);
 
 --
--- Indeks untuk tabel `trs_wo`
+-- Indexes for table `trs_wo`
 --
 ALTER TABLE `trs_wo`
   ADD PRIMARY KEY (`no_wo`),
@@ -434,7 +437,7 @@ ALTER TABLE `trs_wo`
   ADD KEY `id_2` (`id`);
 
 --
--- Indeks untuk tabel `trs_wo_detail`
+-- Indexes for table `trs_wo_detail`
 --
 ALTER TABLE `trs_wo_detail`
   ADD PRIMARY KEY (`no_wo`),
@@ -442,53 +445,53 @@ ALTER TABLE `trs_wo_detail`
   ADD KEY `id_2` (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `m_produk`
+-- AUTO_INCREMENT for table `m_produk`
 --
 ALTER TABLE `m_produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_user`
+-- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `trs_po`
+-- AUTO_INCREMENT for table `trs_po`
 --
 ALTER TABLE `trs_po`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `trs_po_detail`
+-- AUTO_INCREMENT for table `trs_po_detail`
 --
 ALTER TABLE `trs_po_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `trs_so_detail`
+-- AUTO_INCREMENT for table `trs_so_detail`
 --
 ALTER TABLE `trs_so_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `trs_surat_jalan`
+-- AUTO_INCREMENT for table `trs_surat_jalan`
 --
 ALTER TABLE `trs_surat_jalan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `trs_wo`
+-- AUTO_INCREMENT for table `trs_wo`
 --
 ALTER TABLE `trs_wo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `trs_wo_detail`
+-- AUTO_INCREMENT for table `trs_wo_detail`
 --
 ALTER TABLE `trs_wo_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

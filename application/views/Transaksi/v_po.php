@@ -116,6 +116,13 @@
 								</td>
 								<td width="15%"></td>
 							</tr>
+							<tr>
+								<td width="15%">ETA</td>
+								<td>
+									<input type="date" class="form-control" name="eta" id="eta">
+								</td>
+								<td></td>
+							</tr>
 						</table>
 					</div>
 
@@ -239,8 +246,9 @@
 	function simpan() {
 		id_pelanggan = $("#id_id_pelanggan" + i).val();
 		kode_po = $("#kode_po" + i).val();
+		eta = $("#eta" + i).val();
 
-		if (id_pelanggan == '' || kode_po == '') {
+		if (id_pelanggan == '' || kode_po == '' || eta == '') {
 			toastr.info('Harap Lengkapi Form');
 			return;
 		}
@@ -303,6 +311,7 @@
 		$('#id_pelanggan').val("").trigger('change');
 
 		$("#kode_po").val("");
+		$("#eta").val("");
 
 		$("#txt_kota").html(": -");
 		$("#txt_no_telp").html(": -");
@@ -354,6 +363,7 @@
 				$('#id_pelanggan').val(data[0].id_pelanggan).trigger('change');
 
 				$("#kode_po").val(data[0].kode_po);
+				$("#eta").val(data[0].eta);
 
 				$("#txt_kota").html(": " + data[0].kota);
 				$("#txt_no_telp").html(": " + data[0].no_telp);
